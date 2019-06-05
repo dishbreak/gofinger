@@ -80,7 +80,7 @@ func fingerUser(conn net.Conn) {
     defer conn.Close()
     defer func() {
         if err := recover(); err != nil {
-            log.Fatalf("Unexpected system error: %s", err)
+            log.Printf("Unexpected system error: %s", err)
             conn.Write([]byte("System error!"))
         }
     }()
