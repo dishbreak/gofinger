@@ -72,7 +72,7 @@ func getUserRecord(username string) (string, error) {
         panic(err)
     }
 
-    return responseBuffer.String(), nil
+    return strings.TrimSpace(responseBuffer.String()), nil
 }
 
 func fingerUser(conn net.Conn) {
@@ -112,10 +112,10 @@ func main() {
     case 0:
         port = "4500"
     case 1:
-        if _, err := strconv.Atoi(args[1]); err != nil {
+        if _, err := strconv.Atoi(args[0]); err != nil {
             panic(fmt.Sprintf("Didn't recognize '%s' as a valid port number!", args[1]))
         }
-        port = args[1]
+        port = args[0]
     }
 
     listeningInterface := "127.0.0.1:" + port

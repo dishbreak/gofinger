@@ -1,14 +1,16 @@
 package main
 
 import (
+    "flag"
     "fmt"
     "net"
-    "os"
     "strings"
 )
 
 func main() {
-    args := os.Args[1:]
+    port := flag.String("P", "4500", "Port to communicate with server.")
+    flag.Parse()
+    args := flag.Args()
 
     if len(args) != 1 {
         panic("Must provide username or username@host!")
@@ -31,9 +33,7 @@ func main() {
 
     }
 
-    port := "4500"
-
-    conn, err := net.Dial("tcp", host+":"+port)
+    conn, err := net.Dial("tcp", host+":"+*port)
     if err != nil {
         panic(err)
     }
@@ -47,6 +47,6 @@ func main() {
         panic(err)
     }
 
-    fmt.Printf("%s", string(buf[0:bytesRead]))
+    fmt.Printf("%s\n", string(buf[0:bytesRead]))
 
 }
